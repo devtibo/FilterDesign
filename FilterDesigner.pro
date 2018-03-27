@@ -41,3 +41,6 @@ LIBS += -lfftw3
 
 RESOURCES += \
     ressources.qrc
+
+DISTFILES += \
+    ScreenShots/screenshot.png
