@@ -179,8 +179,8 @@ MainWindow::MainWindow(QWidget *parent)
     /* TEXT EDIT FOR OUPUT */
     /*--------------------*/
     QTabWidget *mTabWidget = new QTabWidget;
-mTabWidget->setMaximumWidth(220);
-mTabWidget->setMinimumWidth(220);
+    mTabWidget->setMaximumWidth(220);
+    mTabWidget->setMinimumWidth(220);
 
     mTextEditCoef = new QTextEdit;
     mTextEditCoef->setReadOnly(true);
@@ -248,11 +248,17 @@ void MainWindow::generateFilter()
 
     QString ptsStr;
     /* Select uniform points*/
+
     for (float i=0;i<nbrePointsOnGraph;i++)
     {
         float indx;
         indx = (1.0*i)/ (nbrePointsOnGraph-1);
         yUniform.append(y.at(round( indx* (1.0*y.size()-1.0))));
+
+        /*if(yUniform.at(i)>1)
+            for (int k=0;k<yUniform.length();k++)
+                yUniform.replace(k,yUniform.at(k)/(yUniform.at(i)));*/
+
         xUniform.append(x.at(round( indx* (1.0*x.size()-1.0))));
         qDebug("%f %f",xUniform.at(i)/(fs/2),yUniform.at(i));
         ptsStr +=  QString::number(yUniform.at(i)) + "\n";
@@ -266,7 +272,7 @@ void MainWindow::generateFilter()
 
     f[0][0] = yUniform.at(0);
     f[0][1] = 0;
-    for (int i=1;i<Nfft/2;i++)
+    for (int i=1;i<nbrePointsOnGraph;i++)
     {
         f[i][0] = yUniform.at(i);
         f[i][1] = 0;
