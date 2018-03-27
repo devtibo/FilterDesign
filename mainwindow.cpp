@@ -192,7 +192,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(nbrePts,SIGNAL(valueChanged(int)),this,SLOT(onValueChanged(int)));
 
 
-    QCheckBox *interpCurveCheckBox = new QCheckBox("Show Interpolated Curbe");
+    QCheckBox *interpCurveCheckBox = new QCheckBox("Show Interpolated Curve");
     QCheckBox *interpPatternCheckBox = new QCheckBox("Show Interpolated Pattern");
     interpCurveCheckBox->setChecked(true);
     interpPatternCheckBox->setChecked(true);

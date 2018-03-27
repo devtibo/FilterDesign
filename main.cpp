@@ -7,5 +7,16 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
+    a.setStyle("plastique");
+    QString test;
+    QFile f(":/darkorange.stylesheet");
+    if (f.open(QFile::ReadOnly | QFile::Text)) {
+        QTextStream in(&f);
+        // test =new  QString();
+        test = in.readAll();
+    }
+    w.setStyleSheet(test);
+
+
     return a.exec();
 }

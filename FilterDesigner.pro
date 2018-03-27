@@ -38,3 +38,6 @@ HEADERS += \
     windows.h
 
 LIBS += -lfftw3
+
+RESOURCES += \
+    ressources.qrc
