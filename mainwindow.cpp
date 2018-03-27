@@ -178,9 +178,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     /* TEXT EDIT FOR OUPUT */
     /*--------------------*/
-    mTextEdit = new QTextEdit;
-    mTextEdit->setReadOnly(true);
-    mTextEdit->setMaximumWidth(200);
+    QTabWidget *mTabWidget = new QTabWidget;
+mTabWidget->setMaximumWidth(220);
+mTabWidget->setMinimumWidth(220);
+
+    mTextEditCoef = new QTextEdit;
+    mTextEditCoef->setReadOnly(true);
+    mTextEditCoef->setMaximumWidth(220);
+
+    mTextEditPts = new QTextEdit;
+    mTextEditPts->setReadOnly(true);
+    mTextEditPts->setMaximumWidth(220);
+
+    mTabWidget->addTab(mTextEditCoef,"Coefficients");
+    mTabWidget->addTab(mTextEditPts,"Template Points");
+
 
     /* SPINEBOX */
     /*-----------*/
@@ -203,7 +215,7 @@ MainWindow::MainWindow(QWidget *parent)
     /*--------------*/
     QFrame *mFrame = new QFrame;
     panelLayout->addLayout(mainLayout);
-    panelLayout->addWidget(mTextEdit);
+    panelLayout->addWidget(mTabWidget);
     mainLayout->addWidget(customPlot);
     mainLayout->addWidget(mHelp);
     mainLayout->addWidget(nbrePts);
@@ -233,6 +245,8 @@ void MainWindow::generateFilter()
 
 
     int Nfft = nbrePointsOnGraph*2-1;
+
+    QString ptsStr;
     /* Select uniform points*/
     for (float i=0;i<nbrePointsOnGraph;i++)
     {
@@ -241,9 +255,10 @@ void MainWindow::generateFilter()
         yUniform.append(y.at(round( indx* (1.0*y.size()-1.0))));
         xUniform.append(x.at(round( indx* (1.0*x.size()-1.0))));
         qDebug("%f %f",xUniform.at(i)/(fs/2),yUniform.at(i));
+        ptsStr +=  QString::number(yUniform.at(i)) + "\n";
     }
 
-
+    mTextEditPts->setText(ptsStr);
 
     // Plot uniform set of points
     fftw_complex f[Nfft];
@@ -298,14 +313,12 @@ void MainWindow::generateFilter()
 
 
     QString coefStr;
-    coefStr += "Coefficients:\n";
-    coefStr += "===========\n\n";
     for (int i=0;i<Nfft;i++)
     {
         ri.replace(i,ri.at(i));// *  1/gain);
         coefStr += QString::number(ri.at(i)) + "\n";
     }
-    mTextEdit->setText(coefStr);
+    mTextEditCoef->setText(coefStr);
 
 
 

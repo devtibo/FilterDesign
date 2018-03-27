@@ -19,7 +19,8 @@ public:
 
     QCustomPlot *customPlot ;
     QCPItemTracer *phaseTracer;
-    QTextEdit *mTextEdit;
+    QTextEdit *mTextEditCoef;
+    QTextEdit *mTextEditPts;
       QSpinBox *nbrePts;
 
     void generateFilter();
